@@ -27,4 +27,6 @@ keycloak:
   auth-server-url: http://localhost:8182/auth
   realm: lib-realm
   resource: lib-client
+  bearer-only: true
   public-client: true
+  enabled: true
