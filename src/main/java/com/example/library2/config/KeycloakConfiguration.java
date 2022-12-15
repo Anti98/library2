@@ -5,11 +5,10 @@ import org.keycloak.authorization.client.AuthzClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 import java.util.Collections;
-import java.util.HashMap;
 
 @Configuration
+
 public class KeycloakConfiguration {
     @Bean
     public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {

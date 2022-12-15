@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     public KeycloakClientRequestFactory keycloakClientRequestFactory;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
@@ -49,11 +50,12 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/swagger-ui/**").permitAll();
-        //.anyRequest().authenticated();
+
+        http.authorizeRequests()
+                .mvcMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .mvcMatchers("/api/login/**").permitAll()
+                .anyRequest()
+                .authenticated();
+        http.csrf().disable();
     }
 }

@@ -1,12 +1,13 @@
 package com.example.library2.service;
 
-import com.example.library2.config.LoginResponseMessage;
+import com.example.library2.model.security.LoginResponseMessage;
+import com.example.library2.model.security.UserCredentials;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.util.Http;
 import org.keycloak.representations.AccessTokenResponse;
+import org.keycloak.representations.idm.authorization.AuthorizationResponse;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -15,27 +16,23 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final AuthzClient authzClient;
 
-    public LoginResponseMessage login(String email, String pass) {
-        log.info("START login for user {}", email);
-        val response = authzClient.authorization("user2", "123").authorize();
-        val result = new LoginResponseMessage()
+    public LoginResponseMessage login(UserCredentials userCredentials) {
+        AuthorizationResponse response = authzClient.authorization(userCredentials.getUserName(), userCredentials.getPassword()).authorize();
+        return LoginResponseMessage
                 .builder().
                 tokenType(response.getTokenType()).
                 refreshToken(response.getRefreshToken()).
                 token(response.getToken()).build();
-        log.info("FINISH login for user {} successfully", email);
-        return result;
     }
 
     public LoginResponseMessage tokenRefresh(String refresh) {
-        log.info("START tokenRefresh");
         String url = authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/token";
         String clientId = authzClient.getConfiguration().getResource();
         String secret = (String) authzClient.getConfiguration().getCredentials().get("secret");
-        val http = new Http(authzClient.getConfiguration(), (params, headers) -> {
+        Http http = new Http(authzClient.getConfiguration(), (params, headers) -> {
         });
 
-        val response = http.<AccessTokenResponse>post(url)
+        AccessTokenResponse response = http.<AccessTokenResponse>post(url)
                 .authentication()
                 .client()
                 .form()
@@ -47,17 +44,29 @@ public class AuthService {
                 .json(AccessTokenResponse.class)
                 .execute();
 
-        val result = new LoginResponseMessage()
+        return LoginResponseMessage
                 .builder().
                 tokenType(response.getTokenType()).
                 refreshToken(response.getRefreshToken()).
                 token(response.getToken()).build();
-        log.info("FINISH tokenRefresh");
-        return result;
     }
 
-    public void logout(String token) {
+    public void logout(String refreshToken) {
+        String url = authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/logout";
+        String clientId = authzClient.getConfiguration().getResource();
+        String secret = (String) authzClient.getConfiguration().getCredentials().get("secret");
+        Http http = new Http(authzClient.getConfiguration(), (params, headers) -> {
+        });
 
+        http.<Object>post(url)
+                .authentication()
+                .client()
+                .form()
+                .param("refresh_token", refreshToken)
+                .param("client_id", clientId)
+                .param("client_secret", secret)
+                .response()
+                .json(Object.class)
+                .execute();
     }
-
 }

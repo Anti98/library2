@@ -1,4 +1,4 @@
-package com.example.library2.config;
+package com.example.library2.model.security;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
