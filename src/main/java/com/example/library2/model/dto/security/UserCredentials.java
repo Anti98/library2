@@ -1,4 +1,4 @@
-package com.example.library2.model.security;
+package com.example.library2.model.dto.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
