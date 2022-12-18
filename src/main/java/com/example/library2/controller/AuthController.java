@@ -21,7 +21,6 @@ public class AuthController {
     @Operation(summary = "Обновление токена", description = "Обновление токенов через refresh_token")
     @PostMapping("/tokenRefresh")
     public AccessTokenResponse tokenRefresh(@RequestBody String refreshToken) {
-
         return authService.tokenRefresh(refreshToken);
     }
 
@@ -31,11 +30,10 @@ public class AuthController {
         return authService.login(userCredentials);
     }
 
-    @Operation(summary = "Завершение сесси", description = "Завершение сессии по refresh токену")
+    @Operation(summary = "Завершение сессии", description = "Завершение сессии по refresh токену")
     @PostMapping("/logout")
     public String logOut(@RequestBody String refreshToken) {
-        authService.logout(refreshToken);
-        return "Logout complete";
+        return authService.logout(refreshToken);
     }
 }
 
