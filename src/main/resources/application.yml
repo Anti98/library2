@@ -24,7 +24,9 @@ server:
   port: 8080
 
 keycloak:
-  auth-server-url: http://localhost:8182/auth
+  auth-server-url: http://localhost:8182
   realm: lib-realm
   resource: lib-client
+  bearer-only: true
   public-client: true
+  enabled: true
