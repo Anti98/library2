@@ -50,7 +50,6 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-
         http.authorizeRequests()
                 .mvcMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .mvcMatchers("/api/login/**").permitAll()

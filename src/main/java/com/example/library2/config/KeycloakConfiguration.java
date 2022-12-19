@@ -32,7 +32,6 @@ public class KeycloakConfiguration {
     @Bean
     @Primary
     public RestTemplate getRestTemplate() {
-
         return new RestTemplate();
     }
     @Bean

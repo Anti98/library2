@@ -27,37 +27,39 @@ public class AuthService {
     }
 
     public AccessTokenResponse tokenRefresh(String refresh) {
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(getMap(authzClient, refresh), httpHeaders);
-        ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(getRefreshUrlString(authzClient), request, AccessTokenResponse.class);
-        if (response.getStatusCode().is2xxSuccessful()) {
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(AuthServiceUtil.getMap(authzClient, refresh), httpHeaders);
+        ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(AuthServiceUtil.getRefreshUrlString(authzClient), request, AccessTokenResponse.class);
+        if (response.getStatusCode().is2xxSuccessful())
             if (response.getBody() != null) return response.getBody();
             else return new AccessTokenResponse();
-        } else throw new BadStatusCode("SMTH go wrong");
+        throw new BadStatusCode("SMTH go wrong");
     }
 
     public String logout(String refreshToken) {
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(getMap(authzClient, refreshToken), httpHeaders);
-        ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(getLogOutUrlString(authzClient), request, AccessTokenResponse.class);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(AuthServiceUtil.getMap(authzClient, refreshToken), httpHeaders);
+        ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(AuthServiceUtil.getLogOutUrlString(authzClient), request, AccessTokenResponse.class);
         if (response.getStatusCode().is2xxSuccessful()) return "Logout complete";
-        else throw new BadStatusCode("SMTH go wrong");
+        throw new BadStatusCode("SMTH go wrong");
     }
 
-    private static String getLogOutUrlString(AuthzClient authzClient) {
-        return authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/logout";
-    }
+    private static class AuthServiceUtil {
+        private static String getLogOutUrlString(AuthzClient authzClient) {
+            return authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/logout";
+        }
 
-    private static String getRefreshUrlString(AuthzClient authzClient) {
-        return authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/token";
-    }
+        private static String getRefreshUrlString(AuthzClient authzClient) {
+            return authzClient.getConfiguration().getAuthServerUrl() + "/realms/" + authzClient.getConfiguration().getRealm() + "/protocol/openid-connect/token";
+        }
 
-    private static MultiValueMap<String, String> getMap(AuthzClient authzClient, String refresh) {
-        String clientId = authzClient.getConfiguration().getResource();
-        String secret = String.valueOf(authzClient.getConfiguration().getCredentials().get("secret"));
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("grant_type", "refresh_token");
-        map.add("refresh_token", refresh);
-        map.add("client_id", clientId);
-        map.add("client_secret", secret);
-        return map;
+        private static MultiValueMap<String, String> getMap(AuthzClient authzClient, String refresh) {
+            String clientId = authzClient.getConfiguration().getResource();
+            String secret = String.valueOf(authzClient.getConfiguration().getCredentials().get("secret"));
+            MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+            map.add("grant_type", "refresh_token");
+            map.add("refresh_token", refresh);
+            map.add("client_id", clientId);
+            map.add("client_secret", secret);
+            return map;
+        }
     }
 }
