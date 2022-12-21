@@ -19,14 +19,18 @@ public class BookService {
     BookMapper bookMapper;
 
     public BookDTO getBookById(Long id) {
-        return bookMapper.entityToDto(bookRepository.findById(id).orElseThrow(() -> new NoEntityException("No book with that id")));
+        BookEntity bookEntity = bookRepository.findById(id).orElseThrow(() -> new NoEntityException("No book with that id"));
+        return bookMapper.entityToDto(bookEntity);
     }
 
     public List<BookDTO> getAllBooks() {
-        return bookRepository.findAll().stream().map(bookMapper::entityToDto).collect(Collectors.toList());
+        return bookRepository.findAll().stream()
+                .map(bookMapper::entityToDto)
+                .collect(Collectors.toList());
     }
 
     public BookDTO postBook(BookShortDTO bookDTO) {
+
         return bookMapper.entityToDto(bookRepository.save(bookMapper.bookShortDtoToEntity(bookDTO)));
     }
 
