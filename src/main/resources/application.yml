@@ -1,10 +1,8 @@
 spring:
-  profiles:
-    active: local
   datasource:
-    password: urPassword
-    url: urUrl
-    username: urUsername
+    password: "${DB_PASSWORD}"
+    url: "${DB_URL}"
+    username: "${DB_USERNAME}"
   jpa:
     hibernate:
       ddl-auto: update
@@ -23,12 +21,12 @@ spring:
       matching-strategy: ant_path_matcher
 
 server:
-  port: 8080
+  port: "${SERVER_PORT}"
 
 keycloak:
-  auth-server-url: ururl
-  realm: lib-realm
-  resource: lib-client
+  auth-server-url: "${KK_URL}"
+  realm: "${KK_REALM}"
+  resource: "${KK_REALM}"
   bearer-only: true
   public-client: true
   enabled: true
