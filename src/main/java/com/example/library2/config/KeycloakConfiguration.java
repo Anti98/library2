@@ -14,8 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Collections;
 
 @Configuration
-
 public class KeycloakConfiguration {
+
     @Bean
     public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
@@ -37,10 +37,12 @@ public class KeycloakConfiguration {
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
+
     @Bean
-    public HttpHeaders getHttpHeaders(){
+    public HttpHeaders getHttpHeaders() {
         return new HttpHeaders();
     }
+
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
