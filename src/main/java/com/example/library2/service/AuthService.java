@@ -20,7 +20,6 @@ import org.springframework.web.client.RestTemplate;
 public class AuthService {
     private final AuthzClient authzClient;
     private RestTemplate restTemplate;
-    private HttpHeaders httpHeaders;
 
     public AccessTokenResponse login(UserCredentials userCredentials) {
         return authzClient.obtainAccessToken(userCredentials.getUserName(), userCredentials.getPassword());
@@ -29,7 +28,7 @@ public class AuthService {
     public AccessTokenResponse tokenRefresh(String refresh) {
         MultiValueMap<String, String> headerMap = AuthServiceUtil.getMap(authzClient, refresh);
         String refreshTokenUrl = AuthServiceUtil.getRefreshUrlString(authzClient);
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headerMap, httpHeaders);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headerMap, new HttpHeaders());
         ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(refreshTokenUrl, request, AccessTokenResponse.class);
         if (response.getStatusCode().is2xxSuccessful())
             if (response.getBody() != null) return response.getBody();
@@ -40,7 +39,7 @@ public class AuthService {
     public String logout(String refreshToken) {
         String logOutUrl = AuthServiceUtil.getLogOutUrlString(authzClient);
         MultiValueMap<String, String> headerMap = AuthServiceUtil.getMap(authzClient, refreshToken);
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headerMap, httpHeaders);
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headerMap, new HttpHeaders());
         ResponseEntity<AccessTokenResponse> response = restTemplate.postForEntity(logOutUrl, request, AccessTokenResponse.class);
         if (response.getStatusCode().is2xxSuccessful()) return "Logout complete";
         throw new BadStatusCode("SMTH go wrong");
