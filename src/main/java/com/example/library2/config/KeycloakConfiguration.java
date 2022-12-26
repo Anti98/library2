@@ -9,7 +9,6 @@ import java.util.Collections;
 
 @Configuration
 public class KeycloakConfiguration {
-
     @Bean
     public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
