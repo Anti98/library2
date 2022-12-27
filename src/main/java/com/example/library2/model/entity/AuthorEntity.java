@@ -1,14 +1,14 @@
 package com.example.library2.model.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

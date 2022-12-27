@@ -1,8 +1,6 @@
 package com.example.library2.model.entity;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
