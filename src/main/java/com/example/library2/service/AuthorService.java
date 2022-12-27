@@ -3,7 +3,8 @@ package com.example.library2.service;
 import com.example.library2.exception.NoEntityException;
 import com.example.library2.mapper.AuthorMapper;
 import com.example.library2.model.dto.author.AuthorDTO;
-import com.example.library2.model.dto.author.AuthorPostDTO;
+import com.example.library2.model.dto.author.AuthorListDTO;
+import com.example.library2.model.dto.author.AuthorNewDTO;
 import com.example.library2.model.entity.AuthorEntity;
 import com.example.library2.repositiory.AuthorRepository;
 import lombok.AllArgsConstructor;
@@ -23,14 +24,14 @@ public class AuthorService {
         return authorMapper.entityToDto(author);
     }
 
-    public AuthorDTO postAuthor(AuthorPostDTO authorPostDTO) {
-        return authorMapper.entityToDto(authorRepository.save(authorMapper.postDtoToEntity(authorPostDTO)));
+    public AuthorDTO postAuthor(AuthorNewDTO authorNewDTO) {
+        return authorMapper.entityToDto(authorRepository.save(authorMapper.postDtoToEntity(authorNewDTO)));
     }
 
-    public List<AuthorDTO> getAllAuthors() {
-        return authorRepository.findAll().stream()
+    public AuthorListDTO getAllAuthors() {
+        return new AuthorListDTO(authorRepository.findAll().stream()
                 .map(authorMapper::entityToDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     public AuthorDTO deleteAuthorById(Long id) {

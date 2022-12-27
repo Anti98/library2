@@ -1,7 +1,8 @@
 package com.example.library2.controller;
 
 import com.example.library2.model.dto.author.AuthorDTO;
-import com.example.library2.model.dto.author.AuthorPostDTO;
+import com.example.library2.model.dto.author.AuthorListDTO;
+import com.example.library2.model.dto.author.AuthorNewDTO;
 import com.example.library2.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -29,13 +30,13 @@ public class AuthorController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Добавить автора", description = "Добавить автора")
-    public AuthorDTO postAuthor(@RequestBody AuthorPostDTO authorPostDTO) {
-        return authorService.postAuthor(authorPostDTO);
+    public AuthorDTO postAuthor(@RequestBody AuthorNewDTO authorNewDTO) {
+        return authorService.postAuthor(authorNewDTO);
     }
 
     @GetMapping
     @Operation(summary = "Найти всех авторов", description = "Найти всех авторов")
-    public List<AuthorDTO> getAllAuthors() {
+    public AuthorListDTO getAllAuthors() {
         return authorService.getAllAuthors();
     }
 
