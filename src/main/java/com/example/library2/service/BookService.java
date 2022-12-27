@@ -4,7 +4,7 @@ import com.example.library2.exception.NoEntityException;
 import com.example.library2.mapper.BookMapper;
 import com.example.library2.model.dto.book.BookAuthorShortDTO;
 import com.example.library2.model.dto.book.BookListDTO;
-import com.example.library2.model.dto.book.BookNewShortDto;
+import com.example.library2.model.dto.book.NewBookShortDto;
 import com.example.library2.model.entity.AuthorEntity;
 import com.example.library2.model.entity.BookEntity;
 import com.example.library2.repositiory.AuthorRepository;
@@ -32,9 +32,9 @@ public class BookService {
                 .collect(Collectors.toList()));
     }
 
-    public BookAuthorShortDTO postBook(BookNewShortDto bookNewShortDto) {
-        AuthorEntity authorEntity = authorRepository.findById(bookNewShortDto.getAuthorId()).orElseThrow(() -> new NoEntityException("No such author"));
-        BookEntity bookEntity = bookMapper.shortPostDtoToEntity(bookNewShortDto);
+    public BookAuthorShortDTO postBook(NewBookShortDto newBookShortDto) {
+        AuthorEntity authorEntity = authorRepository.findById(newBookShortDto.getAuthorId()).orElseThrow(() -> new NoEntityException("No such author"));
+        BookEntity bookEntity = bookMapper.shortPostDtoToEntity(newBookShortDto);
         bookEntity.setAuthor(authorEntity);
         return bookMapper.entityToBookGetDto(bookRepository.save(bookEntity));
     }

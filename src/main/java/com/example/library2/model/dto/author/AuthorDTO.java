@@ -4,6 +4,7 @@ import com.example.library2.model.dto.book.BookShortDTO;
 import lombok.Data;
 
 import java.util.Set;
+
 @Data
 public class AuthorDTO {
     private Long id;

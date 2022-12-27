@@ -2,7 +2,7 @@ package com.example.library2.controller;
 
 import com.example.library2.model.dto.author.AuthorDTO;
 import com.example.library2.model.dto.author.AuthorListDTO;
-import com.example.library2.model.dto.author.AuthorNewDTO;
+import com.example.library2.model.dto.author.NewAuthorDTO;
 import com.example.library2.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,8 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/author")
@@ -30,8 +28,8 @@ public class AuthorController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Добавить автора", description = "Добавить автора")
-    public AuthorDTO postAuthor(@RequestBody AuthorNewDTO authorNewDTO) {
-        return authorService.postAuthor(authorNewDTO);
+    public AuthorDTO postAuthor(@RequestBody NewAuthorDTO newAuthorDTO) {
+        return authorService.postAuthor(newAuthorDTO);
     }
 
     @GetMapping

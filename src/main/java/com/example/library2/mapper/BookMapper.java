@@ -2,7 +2,7 @@ package com.example.library2.mapper;
 
 import com.example.library2.model.dto.book.BookDTO;
 import com.example.library2.model.dto.book.BookAuthorShortDTO;
-import com.example.library2.model.dto.book.BookNewShortDto;
+import com.example.library2.model.dto.book.NewBookShortDto;
 import com.example.library2.model.entity.BookEntity;
 import org.mapstruct.Mapper;
 
@@ -12,6 +12,6 @@ public interface BookMapper {
 
     BookAuthorShortDTO entityToBookGetDto(BookEntity bookEntity);
 
-    BookEntity shortPostDtoToEntity(BookNewShortDto bookNewShortDto);
+    BookEntity shortPostDtoToEntity(NewBookShortDto newBookShortDto);
 
 }

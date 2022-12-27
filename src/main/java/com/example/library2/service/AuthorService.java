@@ -4,13 +4,12 @@ import com.example.library2.exception.NoEntityException;
 import com.example.library2.mapper.AuthorMapper;
 import com.example.library2.model.dto.author.AuthorDTO;
 import com.example.library2.model.dto.author.AuthorListDTO;
-import com.example.library2.model.dto.author.AuthorNewDTO;
+import com.example.library2.model.dto.author.NewAuthorDTO;
 import com.example.library2.model.entity.AuthorEntity;
 import com.example.library2.repositiory.AuthorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +23,8 @@ public class AuthorService {
         return authorMapper.entityToDto(author);
     }
 
-    public AuthorDTO postAuthor(AuthorNewDTO authorNewDTO) {
-        return authorMapper.entityToDto(authorRepository.save(authorMapper.postDtoToEntity(authorNewDTO)));
+    public AuthorDTO postAuthor(NewAuthorDTO newAuthorDTO) {
+        return authorMapper.entityToDto(authorRepository.save(authorMapper.postDtoToEntity(newAuthorDTO)));
     }
 
     public AuthorListDTO getAllAuthors() {

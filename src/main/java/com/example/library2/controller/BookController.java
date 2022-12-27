@@ -2,7 +2,7 @@ package com.example.library2.controller;
 
 import com.example.library2.model.dto.book.BookAuthorShortDTO;
 import com.example.library2.model.dto.book.BookListDTO;
-import com.example.library2.model.dto.book.BookNewShortDto;
+import com.example.library2.model.dto.book.NewBookShortDto;
 import com.example.library2.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,8 +10,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/book")
@@ -36,8 +34,8 @@ public class BookController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Добавление книги", description = "Добавление книги")
-    public BookAuthorShortDTO postBook(@RequestBody BookNewShortDto bookNewShortDto) {
-        return bookService.postBook(bookNewShortDto);
+    public BookAuthorShortDTO postBook(@RequestBody NewBookShortDto newBookShortDto) {
+        return bookService.postBook(newBookShortDto);
     }
 
     @DeleteMapping("/{id}")
