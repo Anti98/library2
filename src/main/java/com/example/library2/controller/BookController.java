@@ -1,7 +1,7 @@
 package com.example.library2.controller;
 
-import com.example.library2.model.dto.book.BookDTO;
-import com.example.library2.model.dto.book.BookShortDTO;
+import com.example.library2.model.dto.book.BookGetDTO;
+import com.example.library2.model.dto.book.BookPostShortDto;
 import com.example.library2.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -22,27 +22,27 @@ public class BookController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Получение книги по id", description = "Получение книги по id")
-    public BookDTO getBook(@PathVariable Long id) {
+    public BookGetDTO getBook(@PathVariable Long id) {
         return bookService.getBookById(id);
     }
 
     @GetMapping
     @Operation(summary = "Получение всех книг", description = "Получение всех книг")
-    public List<BookDTO> getAllBooks() {
+    public List<BookGetDTO> getAllBooks() {
         return bookService.getAllBooks();
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Добавление книги", description = "Добавление книги")
-    public BookDTO postBook(@RequestBody BookShortDTO bookDTO) {
-        return bookService.postBook(bookDTO);
+    public BookGetDTO postBook(@RequestBody BookPostShortDto bookPostShortDto) {
+        return bookService.postBook(bookPostShortDto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "Удаление книги", description = "Удаление книги по id")
-    public BookDTO deleteBook(@PathVariable Long id) {
+    public BookGetDTO deleteBook(@PathVariable Long id) {
         return bookService.deleteBook(id);
     }
 }
