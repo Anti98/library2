@@ -17,17 +17,19 @@ import java.util.List;
 
 
 public class TestValues {
-    protected static AuthorDTO authorDTO = new AuthorDTO(1L, "AuthorName", "AuthorLastName", "AuthorSecondName", null);
-    protected static AuthorEntity authorEntity = new AuthorEntity(1L, "AuthorName", "AuthorLastName", "AuthorSecondName", null);
+    final static Long ID = 1L;
+    final static Long INVALID_ID = -1L;
+    protected static AuthorDTO authorDTO = new AuthorDTO(ID, "AuthorName", "AuthorLastName", "AuthorSecondName", null);
+    protected static AuthorEntity authorEntity = new AuthorEntity(ID, "AuthorName", "AuthorLastName", "AuthorSecondName", null);
     protected static AuthorEntity authorEntitySave = new AuthorEntity(null, "AuthorName", "AuthorLastName", "AuthorSecondName", null);
     protected static NewAuthorDTO newAuthorDTO = new NewAuthorDTO("AuthorName", "AuthorLastName", "AuthorSecondName");
-    protected static NewBookShortDto newBookShortDto = new NewBookShortDto("title", "edition", 1L);
-    protected static NewBookShortDto bookWrongAuthorDTO = new NewBookShortDto("title", "edition", -1L);
+    protected static NewBookShortDto newBookShortDto = new NewBookShortDto("title", "edition", ID);
+    protected static NewBookShortDto bookWrongAuthorDTO = new NewBookShortDto("title", "edition", INVALID_ID);
     protected static AuthorListDTO authorListDTO = new AuthorListDTO(new ArrayList<>(Collections.singletonList(authorDTO)));
-    protected static BookEntity bookEntity = new BookEntity(1L, "title", "edition", authorEntity);
+    protected static BookEntity bookEntity = new BookEntity(ID, "title", "edition", authorEntity);
     protected static BookEntity bookEntitySave = new BookEntity(null, "title", "edition", authorEntity);
-    protected static AuthorShortDTO authorShortDTO = new AuthorShortDTO(1L, "AuthorName", "AuthorLastName", "AuthorSecondName");
-    protected static BookAuthorShortDTO bookAuthorShortDTO = new BookAuthorShortDTO(1L, "title", "edition", authorShortDTO);
+    protected static AuthorShortDTO authorShortDTO = new AuthorShortDTO(ID, "AuthorName", "AuthorLastName", "AuthorSecondName");
+    protected static BookAuthorShortDTO bookAuthorShortDTO = new BookAuthorShortDTO(ID, "title", "edition", authorShortDTO);
     protected static AuthorShortDTO authorShortDTO2 = new AuthorShortDTO(2L, "AuthorName2", "AuthorLastName2", "AuthorSecondName2");
     protected static AuthorEntity authorEntity2 = new AuthorEntity(2L, "AuthorName2", "AuthorLastName2", "AuthorSecondName2", null);
     protected static BookEntity bookEntity2 = new BookEntity(2L, "title2", "edition2", authorEntity);

@@ -23,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 class AuthorServiceTest {
+    final Long ID=1L;
+    final Long INVALID_ID=-1L;
     @Spy
     private AuthorMapperImpl authorMapper;
     @Mock
@@ -33,15 +35,14 @@ class AuthorServiceTest {
     @Test
     @DisplayName("получение автора пo id")
     void getAuthorByID() {
-        Mockito.when(authorRepositoryMock.findById(1L)).thenReturn(Optional.of(authorEntity));
-        assertEquals(authorDTO, authorService.getAuthorByID(1L));
+        Mockito.when(authorRepositoryMock.findById(ID)).thenReturn(Optional.of(authorEntity));
+        assertEquals(authorDTO, authorService.getAuthorByID(ID));
     }
 
     @Test
-    @DisplayName("вызов ошибки при попытке получить автора с неправильным id")
+    @DisplayName("Ошибка при вызове автора с несуществующим id")
     void getAuthorWrongId() {
-        Mockito.when(authorRepositoryMock.findById(-1L)).thenReturn(Optional.empty());
-        assertThrows(NoEntityException.class, () -> authorService.getAuthorByID(-1L));
+        assertThrows(NoEntityException.class, () -> authorService.getAuthorByID(INVALID_ID));
     }
 
     @Test
@@ -62,14 +63,13 @@ class AuthorServiceTest {
     @Test
     @DisplayName("удаление автора по id")
     void deleteAuthorById() {
-        Mockito.when(authorRepositoryMock.findById(1L)).thenReturn(Optional.of(authorEntity));
-        assertEquals(authorDTO, authorService.deleteAuthorById(1L));
+        Mockito.when(authorRepositoryMock.findById(ID)).thenReturn(Optional.of(authorEntity));
+        assertEquals(authorDTO, authorService.deleteAuthorById(ID));
     }
 
     @Test
     @DisplayName("вызов ошибки при попытке удалить автора с неправильным id")
     void deleteAuthorWrongId() {
-        Mockito.when(authorRepositoryMock.findById(-1L)).thenReturn(Optional.empty());
-        assertThrows(NoEntityException.class, () -> authorService.deleteAuthorById(-1L));
+        assertThrows(NoEntityException.class, () -> authorService.deleteAuthorById(INVALID_ID));
     }
 }

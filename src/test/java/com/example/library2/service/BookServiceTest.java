@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 class BookServiceTest {
+    final Long ID = 1L;
+    final Long INVALID_ID = -1L;
     @Spy
     private AuthorMapperImpl authorMapper;
     @Spy
@@ -35,14 +37,14 @@ class BookServiceTest {
     @Test
     @DisplayName("Получение книги по id")
     void getBookById() {
-        Mockito.when(bookRepositoryMock.findById(1L)).thenReturn(Optional.of(bookEntity));
-        assertEquals(bookAuthorShortDTO, bookService.getBookById(1L));
+        Mockito.when(bookRepositoryMock.findById(ID)).thenReturn(Optional.of(bookEntity));
+        assertEquals(bookAuthorShortDTO, bookService.getBookById(ID));
     }
+
     @Test
     @DisplayName("вызов ошибки при получении книги с неверным id")
     void getBookWrongId() {
-        Mockito.when(bookRepositoryMock.findById(-1L)).thenReturn(Optional.empty());
-        assertThrows(NoEntityException.class, () -> bookService.getBookById(-1L));
+        assertThrows(NoEntityException.class, () -> bookService.getBookById(INVALID_ID));
     }
 
     @Test
@@ -55,7 +57,7 @@ class BookServiceTest {
     @Test
     @DisplayName("Создание книги")
     void postBook() {
-        Mockito.when(authorRepositoryMock.findById(1L)).thenReturn(Optional.of(authorEntity));
+        Mockito.when(authorRepositoryMock.findById(ID)).thenReturn(Optional.of(authorEntity));
         Mockito.when(bookRepositoryMock.save(bookEntitySave)).thenReturn(bookEntity);
         assertEquals(bookAuthorShortDTO, bookService.postBook(newBookShortDto));
     }
@@ -63,19 +65,19 @@ class BookServiceTest {
     @Test
     @DisplayName("вызов ошибки при создании книги с неверным id автора")
     void createBookWrongAuthorId() {
-        Mockito.when(authorRepositoryMock.findById(-1L)).thenReturn(Optional.empty());
         assertThrows(NoEntityException.class, () -> bookService.postBook(bookWrongAuthorDTO));
     }
+
     @Test
     @DisplayName("удаление автора")
     void deleteBook() {
-        Mockito.when(bookRepositoryMock.findById(1L)).thenReturn(Optional.of(bookEntity));
-        assertEquals(bookAuthorShortDTO, bookService.deleteBook(1L));
+        Mockito.when(bookRepositoryMock.findById(ID)).thenReturn(Optional.of(bookEntity));
+        assertEquals(bookAuthorShortDTO, bookService.deleteBook(ID));
     }
+
     @Test
     @DisplayName("вызов ошибки при удалении книги с неверным id")
     void deleteBookWrongId() {
-        Mockito.when(bookRepositoryMock.findById(-1L)).thenReturn(Optional.empty());
-        assertThrows(NoEntityException.class, () -> bookService.deleteBook(-1L));
+        assertThrows(NoEntityException.class, () -> bookService.deleteBook(INVALID_ID));
     }
 }
