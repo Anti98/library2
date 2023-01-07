@@ -2,6 +2,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
-    <include file="v.1.0.0/cumulative-changelog.xml" relativeToChangelogFile="true"/>
-    <include file="v.1.0.1/cumulative-changelog.xml" relativeToChangelogFile="true"/>
+
+    <changeSet id="07.01.23-add-column-birth-year" author="Andrey">
+        <addColumn tableName="author_entity">
+            <column name="birth_year" type="int"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

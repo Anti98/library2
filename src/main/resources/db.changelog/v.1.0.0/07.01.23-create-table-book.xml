@@ -11,7 +11,7 @@
             <column name="edition" type="varchar(64)"/>
             <column name="title" type="varchar(64)"/>
             <column name="author_id" type="bigint">
-                <constraints foreignKeyName="book_author_id_person_id" references="author_entity(id)"/>
+                <constraints foreignKeyName="book_author_id_person_id" references="author_entity(id)"  deleteCascade="true"/>
             </column>
         </createTable>
     </changeSet>

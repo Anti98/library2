@@ -6,7 +6,7 @@
     <changeSet id="07.01.23-create-table-author" author="Andrey">
         <createTable tableName="author_entity">
             <column name="id" type="bigint" startWith="1" autoIncrement="true" incrementBy="1" >
-                <constraints nullable="false" primaryKey="true" />
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>
             <column name="last_name" type="varchar(64)"/>

@@ -12,5 +12,6 @@ public class BookAuthorShortDTO {
     private Long id;
     private String title;
     private String edition;
+    private Integer pageCount;
     private AuthorShortDTO author;
 }

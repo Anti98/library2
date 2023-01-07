@@ -27,6 +27,7 @@ public class AuthorEntity {
     private String name;
     private String lastName;
     private String secondName;
+    private Integer birthYear;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

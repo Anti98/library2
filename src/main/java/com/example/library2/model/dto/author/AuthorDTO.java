@@ -15,5 +15,6 @@ public class AuthorDTO {
     private String name;
     private String lastName;
     private String secondName;
+    private Integer birthYear;
     private Set<BookShortDTO> books;
 }

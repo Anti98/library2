@@ -27,6 +27,7 @@ public class BookEntity {
     private Long id;
     private String title;
     private String edition;
+    private Integer pageCount;
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
