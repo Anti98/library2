@@ -5,7 +5,7 @@
 
     <changeSet id="07.01.23-create-table-book" author="Andrey">
         <createTable tableName="book_entity">
-            <column name="id" type="bigint" autoIncrement="true">
+            <column name="id" type="bigint" startWith="1" autoIncrement="true" incrementBy="1">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="edition" type="varchar(64)"/>

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
 @Entity
@@ -20,7 +21,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class AuthorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="author_entity_id_seq")
+    @SequenceGenerator(name="author_entity_id_seq",sequenceName="author_entity_id_seq", allocationSize=1)
     private Long id;
     private String name;
     private String lastName;

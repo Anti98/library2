@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @Data
@@ -21,7 +22,8 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_entity_id_seq")
+    @SequenceGenerator(name = "book_entity_id_seq", sequenceName = "book_entity_id_seq", allocationSize = 1)
     private Long id;
     private String title;
     private String edition;
