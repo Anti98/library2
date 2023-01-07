@@ -4,22 +4,12 @@ spring:
     url: "${DB_URL}"
     username: "${DB_USERNAME}"
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
-        dialect:
-          org:
-            hibernate:
-              dialect:
   mvc:
     path match:
       matching-strategy: ant_path_matcher
-
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
 server:
   port: "${SERVER_PORT}"
 
