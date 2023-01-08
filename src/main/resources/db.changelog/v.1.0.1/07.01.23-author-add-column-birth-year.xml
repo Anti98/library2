@@ -4,8 +4,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="07.01.23-add-column-birth-year" author="Andrey">
-        <addColumn tableName="author_entity">
-            <column name="birth_year" type="int"/>
+        <addColumn tableName="author">
+            <column name="birth_date" type="date"/>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

@@ -4,8 +4,8 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
     <changeSet id="07.01.23-create-table-author" author="Andrey">
-        <createTable tableName="author_entity">
-            <column name="id" type="bigint" startWith="1" autoIncrement="true" incrementBy="1" >
+        <createTable tableName="author">
+            <column name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="name" type="varchar(64)"/>

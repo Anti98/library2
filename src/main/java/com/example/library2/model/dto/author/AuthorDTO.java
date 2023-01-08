@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -15,6 +17,6 @@ public class AuthorDTO {
     private String name;
     private String lastName;
     private String secondName;
-    private Integer birthYear;
+    private LocalDate birthDate;
     private Set<BookShortDTO> books;
 }

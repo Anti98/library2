@@ -15,15 +15,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "book")
 public class BookEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_entity_id_seq")
-    @SequenceGenerator(name = "book_entity_id_seq", sequenceName = "book_entity_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_id_seq")
+    @SequenceGenerator(name = "book_id_seq", sequenceName = "book_id_seq", allocationSize = 1)
     private Long id;
     private String title;
     private String edition;

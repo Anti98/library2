@@ -13,21 +13,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "author")
 public class AuthorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="author_entity_id_seq")
-    @SequenceGenerator(name="author_entity_id_seq",sequenceName="author_entity_id_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
+    @SequenceGenerator(name = "author_id_seq", sequenceName = "author_id_seq", allocationSize = 1)
     private Long id;
     private String name;
     private String lastName;
     private String secondName;
-    private Integer birthYear;
+    private LocalDate birthDate;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "author")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
